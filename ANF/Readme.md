@@ -28,4 +28,11 @@
 此论文内容与*ANF: A Fast and Scalable Tool for Data Mining in Massive Graphs*类似，估计是该论文的一个较早的版本，作者都是同一拨人。这篇论文讲得稍微清楚一点。
 
 
+## Loglog Counting of Large Cardinalities
+
+**年份** 2003
+
+**作者** Marianne Durand;Philippe Flajolet
+
+
 

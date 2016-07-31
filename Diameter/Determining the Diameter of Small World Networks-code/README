@@ -1,0 +1,142 @@
+/*******************************************************************************
+BoundingDiameters v0.4
+@author Frank Takes - ftakes@liacs.nl
+@website http://www.liacs.nl/~ftakes/diameter
+*******************************************************************************/
+
+About:
+======
+This piece of software implements an exact algorithm for finding the diameter of 
+undirected graphs.
+Since v0.4, five measures can be computed:
+
+- Diameter 
+- Radius 
+- Center
+- Periphery
+- Eccentricity values of all nodes
+
+If you find the diameter algorithm useful, you can cite the following paper: 
+
+F.W. Takes and W.A. Kosters, Determining the Diameter of Small World Networks, 
+in Proceedings of 20th ACM Conference on Information and Knowledge Management 
+(CIKM 2011), pp. 1191-1196, 2011.
+
+For the other related measures mentioned above, details are provided in:
+
+F.W. Takes and W.A. Kosters, Computing the Eccentricity Distribution of Large 
+Graphs, Algorithms, vol. 6, nr. 1, pp. 100-118, 2013. 
+
+
+                                                   Frank Takes - ftakes@liacs.nl
+
+
+
+Disclaimer:
+===========
+This program was designed for research-purposes only, and is and should in no
+way be seen as an attempt at creating a good piece of code with respect to any 
+programming- or software-engineering standards whatsoever. 
+
+All memory initialization except for the adjacency list, is static. 
+The software has exclusively been tested under the UNIX operating system.
+
+Assuming n is the node count and m is the edge count, the program uses roughly 
+- m*sizeof(int) for holding the edges, and 
+- n*sizeof(int)*9 for node attributes, bookkeeping, etc. As m is usually large
+  compared to m, this should not be an issue. Probably, the constant 9 in this 
+  requirement can be reduced further by using arrays for more than one purpose. 
+
+For larger graphs, you will need a 64-bit system to address sufficient memory.
+
+
+
+Usage:
+======
+1. Set in graph.h the maximum node count to at least the node count + 1:
+   #define MAXN 10000000
+2. Compile the project by typing:
+   make
+3. Then run the software by typing
+   ./bd [file] [type]
+   
+   Where [file] is equal to the relative or absolute location of the input file.
+   Files should not contain anything but pairs of integers representing edges.
+
+   [type] is optional and should be a character, namely:
+   
+   c for the center size
+   d for the diameter (also the default option if this parameter is omitted)
+   e for the eccentricity distribution
+   p for the periphery size   
+   r for the radius
+
+   Note that the values are pretty printed by default to stderr and stdout.
+   When redirecting the output to a file, stdout contains comma separated:
+   
+   [filename] [n] [#iterations of measure] [value of measure]
+        
+        
+Example:
+========
+
+ 1 --- 2
+ |   /
+ | / 
+ 3 --- 4
+
+This graph would have as valid input file:
+
+1 2
+2 3
+3 4
+1 3
+
+(note that the graph can be made symmetric/undirected automatically by the
+G.makeUndirected()-function after the file has been completely loaded)
+
+
+
+Changelog:
+==========
+
+v0.4  -> c0.401
+- Small bugfix: listing all eccentricities now correctly prints lines with pairs
+  node_id[TAB]eccentricity_value (before, the degree instead of id was printed)
+
+v0.32 -> v0.4 (Jul 31, 2013)
+- The bounding algorithm can now also efficiently compute the radius, center and
+  periphery size and to (some extent efficiently) the eccentricity vector.
+- Some speed optimizations were implemented, and the selection-function is now 
+  included in the main bounding algorithm's loop.
+- There is no longer a restriction on the maximum node number (but MAXN still
+  needs to be one larger than the total node count)
+
+v0.31 -> v0.32 (Mar 21, 2013)
+- All data moved to class, no more globals. Initialization of Graph G does have 
+  to be static now.
+
+v0.3 -> v0.31: (Jan 25, 2013) 
+- small code layout fixes
+- pruning method was re-added
+
+v0.2 -> v0.3: (Nov 5, 2012) 
+- added variables minn and maxn for faster node list traversal
+- added support for nodes with integer value 0
+- allowing comments at start of file, i.e., lines starting with the character #
+- removed unnecessary input formats
+- removed inferior node selection strategies
+- code cleanup
+
+v0.1 -> v0.2 (Apr 27, 2012):
+- code cleanup
+
+v0.1 (Aug 08, 2011)
+- beta version online
+
+v0.01 (Jan 31, 2011)
+- initial alpha version online
+
+
+
+EOF
