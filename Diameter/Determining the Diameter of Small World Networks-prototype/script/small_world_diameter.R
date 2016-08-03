@@ -144,13 +144,20 @@ p
 # 论文数据
 ###################################################################
 
-# source_file <- "../data/AstroPhys.txt";directed <- FALSE
+source_file <- "../data/AstroPhys.txt";directed <- FALSE
 # source_file <- "../data/Enron.txt";directed <- FALSE
 # source_file <- "../data/web.txt";directed <- TRUE
-source_file <- "../data/skitter.txt";directed = FALSE
+# source_file <- "../data/skitter.txt";directed = FALSE
  
 dg <- graph_from_data_frame(read.table(source_file, sep = '\t', header=F),
                            directed = directed)
+
+# # cf数据
+# load("../data/sns_ge5.RData")
+# dg <- graph_from_data_frame(sns_ge5)
+# rm(sns_ge5);gc()
+
+
 is.directed(dg)
 is.weighted(dg)
 
@@ -165,9 +172,10 @@ length(E(dg_top1))
 
 set.seed(38)
 
-exp <- 20
+exp <- 1
 dia_rst <- data.frame()
 for(e in 1:exp) {
+  print(sprintf("================Experiment: %d===========",e))
   my_dia <- bounded_diameter(dg_top1, interchange_select)
   dia_rst <- rbind(dia_rst,
                    cbind(exp = e, my_dia$rst))
@@ -177,13 +185,19 @@ stat_round <- ddply(dia_rst, .(exp), function(x) c(round_count = max(x$r)))
 mean(stat_round$round_count)
  
  
-
-p <- ggplot(data = my_dia_2$rst)
+require(ggplot2)
+p <- ggplot(data = dia_rst)
 p <- p + geom_line(aes(x=r, y=low, color='low bound',group=1))
 p <- p + geom_line(aes(x=r, y=high, color='high bound',group=1))
-# p <- p + geom_line(aes(x=r, y=candidates, color='candidates',group=1))
 p <- p + geom_line(aes(x=r, y=high-low, color='range',group=1))
+p
+
+p <- ggplot(data = dia_rst)
+p <- p + geom_line(aes(x=r, y=candidates, color='candidates',group=1))
 p
 
 
 
+load("../data/sns_ge5.RData")
+cf_g <- 
+is.directed(sns_ge5)

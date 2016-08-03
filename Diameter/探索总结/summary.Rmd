@@ -1,0 +1,166 @@
+---
+title: "复杂网络直径计算探索"
+author: "bourneli"
+date: "2016年8月"
+output: 
+  ioslides_presentation: 
+    widescreen: yes
+---
+
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+  .col3 {
+    columns: 3 100px;
+    -webkit-columns: 3 100px;
+    -moz-columns: 3 100px;
+  }
+  .article {
+    font-family: Helvetica, Tahoma, Arial, "Microsoft YaHei", "微软雅黑", SimSun, "宋体", STXihei, "华文细黑", Heiti, "黑体", sans-serif;
+  }
+</style>
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.align='center',
+                      echo=FALSE, 
+                      warning=FALSE, 
+                      message=FALSE,
+                      cache=TRUE)
+```
+
+## 近几年相关论文
+
+* (1999)Fast Estimation of Diameter and Shortest Paths without matrix multiplication; D. Aingworth, C. Checkuri, R. Motwani;$O(m\sqrt{n \log n} + n^2\log n)$
+
+* (2013)Fast Approximation Algorithms for the Diameter and Radius of Sparse Graphs;Liam Roditty, Virginia Vassilevska Williams;$O(mn^{1/2})$
+
+* (2014)Better Approximation Algorithms for the Graph Diameter;Shiri Chechik; Daniel H. Larkin, Liam Roditty, Grant Schoenebeck, Robert E. Tarjan, Virginia Vassilevska Williams;$O(m^{3/2});O(mn^{2/3})$
+
+* (2011)Determiing the Diameter of Small world Networks;Frank W. Takes,Walter A. Kosters;O(mn),小世界网络效果非常好，但是没有理论证明。
+
+前三篇论文思想一脉相承，均是估算直径范围，有严格数学理论证明，复杂度较高；最后一篇，无理论证明，复杂度较高，但实验显示，在小世界网络有较好效果，且可以计算精确直径。 
+
+## 小世界网络直径计算
+
+**算法思路**
+
+根据当前点的离心率，推断所有其他点的离心率。由于直径等于最大离心率，所以可以不断缩小直径的上界和下界，同时排除掉那些对上界和下界没有贡献的点。最终得到精确的直径。
+
+```{r demo_for_algorithm,fig.height=3}
+require(ggplot2)
+
+
+set.seed(12345)
+n <- 2000
+ecc_list <- rnorm(n, mean=15,sd=2)
+# ecc_list <- runif(n, min = 4, max = 20)
+ecc_list <- ecc_list[order(ecc_list)]
+
+ecc_dd <- data.frame(x=1:n, 
+                     ecc = ecc_list, 
+                     low = ecc_list - 3 - 1 * runif(n, min = 0.1, max = 0.15),
+                     high = ecc_list + 3 + 1 * runif(n, min = 0.1, max = 0.15))
+
+special_points <- rbind(ecc_dd[round(n/3),],ecc_dd[n,])
+special_points$label <- c("任意点V","直径G")
+
+p <- ggplot(ecc_dd)
+p <- p + geom_line(aes(x=x,y=ecc, color='离心率'))
+p <- p + geom_line(aes(x=x,y=low, color='离心率-下界'))
+p <- p + geom_line(aes(x=x,y=high, color='离心率-上界'))
+p <- p + geom_point(data=special_points,aes(x=x,y=ecc), color = 'red', size=3)
+p <- p + geom_text(data=special_points,aes(x=x,y=ecc,label=label),vjust=-1)
+p <- p + ggtitle("算法示意图") + xlab('') + ylab('离心率')
+p <- p + guides(color = guide_legend(title = ""))
+p <- p + theme(legend.text = element_text(size = 14))
+p
+
+
+
+```
+
+
+
+## 相关定义与推论-Part 1
+
+定义1: $dist(v,w)$是点$v$到$w$的最短路径长度
+
+定义2：离心率$\epsilon(v)$是节点$v$到其他点的最大最短路径
+
+$$
+  \epsilon(v) = \max_{w \in V} dist(v,w)
+$$
+
+推论1: 直径$\Delta G$与离心率的关系
+
+$$
+  \Delta G = \max_{v \in V} \epsilon(v) \\
+  \epsilon(v) \le \Delta (G) \le 2\epsilon(v)
+$$
+
+## 相关定义与推论-Part 2
+
+
+推论2：离心率界线,已知点$v$的离心率$\epsilon(v)$，对任意点$w \in V$(包括$v$)有
+
+$$
+  \max(\epsilon(v) - dist(v,w), dist(v,w)) \le \epsilon(w) \le \epsilon(v) + dist(v,w)
+$$
+
+定义3：$\epsilon_L(v)$为当前点离心率下界，$\epsilon_L(v)$为离心率上界。
+
+推论3: 直径界限
+
+$$
+  \max_{v \in V}\epsilon_L(v)\le \Delta(G) \le \min(\max_{v \in V}\epsilon_U(v), 2*\min_{v \in V}\epsilon_L(v))
+$$
+
+## 实验及结果-多数据计算
+
+```{r kable, results="asis"}
+exp_data <- read.table("exp_data.txt",sep='\t',header=T)
+require(knitr)
+kable(exp_data, digits=2, align = c('l','l','l','r','r','r','r','l')) 
+```
+
+以上试验使用R单机实现，每一组数据均试验20轮，取平均需要的SSSP轮数。SSSP轮数相比于节点数，基本上可以忽略不计。
+
+## 实验及结果-边界趋势 {.columns-2}
+```{r convergence_trend_1, fig.align='center',fig.width=5,fig.height=3.5} 
+trend <- read.csv("convergence_trend.csv")
+
+require(ggplot2)
+p <- ggplot(data = trend)
+p <- p + geom_line(aes(x=r, y=low, color='下界',group=1))
+p <- p + geom_line(aes(x=r, y=high, color='上界',group=1))
+p <- p + geom_line(aes(x=r, y=high-low, color='区间',group=1))
+p <- p + guides(color = guide_legend(title = ""))
+p <- p + ggtitle("界限变化趋势") + xlab("SSSP轮数") + ylab("")
+p
+
+```
+
+* 选取天体物理论文网络
+* 上下界收敛非常快
+
+```{r convergence_trend_2, fig.align='center',fig.width=5,fig.height=3.5} 
+p <- ggplot(data = trend)
+p <- p + geom_line(aes(x=r, y=candidates,color='red'))
+p <- p + ggtitle("候选节点变化趋势") + xlab("SSSP轮数") + ylab("候选节点数")
+p <- p +  theme(legend.position = "none")
+p
+
+```
+
+* 备选节点在前几轮SSSP，急剧下降
+
+
+## 参考资料
+
+* 相关推论证明
+* 小世界网络直径计算论文
+
+
