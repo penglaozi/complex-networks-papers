@@ -115,7 +115,7 @@ $$
 推论3: 直径界限
 
 $$
-  \max_{v \in V}\epsilon_L(v)\le \Delta(G) \le \min(\max_{v \in V}\epsilon_U(v), 2*\min_{v \in V}\epsilon_L(v))
+  \max_{v \in V}\epsilon_L(v)\le \Delta(G) \le \min(\max_{v \in V}\epsilon_U(v), 2*\min_{v \in V}\epsilon_U(v))
 $$
 
 ## 实验及结果-多数据计算
