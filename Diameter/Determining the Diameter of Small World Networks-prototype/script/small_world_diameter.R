@@ -38,17 +38,7 @@ bounded_diameter <- function(g, select_fun) {
     d <- distances(g, v) # ssp距离
     ecc_v <- max(d) # 当前离心率
     print(sprintf("ecc = %.2f", ecc_v))
-    
-    # 更新每个点离心率的上界和下界
-#     for(w in 1:nrow(candidates)){ # 计算瓶颈
-#       vid <- candidates[w,'vid']
-#       dwv <- d[1, vid]
-#       candidates[w,'low'] <- max(candidates[w,'low'], 
-#                                  max(ecc_v - dwv, dwv))
-#       candidates[w, 'high'] <- min(candidates[w, 'high'], 
-#                                    ecc_v + dwv)
-#     }
-#     
+ 
     # 向量版本，效率非常高
     all_dwv <- sapply(candidates$vid, function(vid)d[1, vid])
     candidates$high <-apply(data.frame(candidates$high, 
