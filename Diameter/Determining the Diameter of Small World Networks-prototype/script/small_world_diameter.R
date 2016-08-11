@@ -191,3 +191,22 @@ p
 load("../data/sns_ge5.RData")
 cf_g <- 
 is.directed(sns_ge5)
+
+
+
+
+
+# cf数据变成多重边
+load("../data/sns_ge5.RData")
+head(sns_ge5)
+
+sns_ge5_2 <- sns_ge5
+sns_ge5_2$new_src <- apply(sns_ge5[,c('src','dst')],1, min)
+sns_ge5_2$new_dst <- apply(sns_ge5[,c('src','dst')],1, max)
+
+# 如果全部是对称的，就不需要这个操作了，直接干
+require(plyr)
+mean(ddply(sns_ge5_2, .(new_src, new_dst), function(x) c(num=nrow(x)))$num)
+
+
+
