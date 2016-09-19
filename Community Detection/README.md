@@ -39,3 +39,6 @@
 **作者** M. E. J. Newman; M. Girvan
 
 此论文就是其他论文中多次提及的Girvan-Newman算法。思路主要是找到介数最高的边，然后删除掉，最后剩下的就是社群。因为**介数高的边是社群之间的桥梁**，所以删除后，剩下的就是社群。但是，此算法计算量及其高，首先介数计算复杂度是O(nm),其次每次删除一个边，需要重新计算介数，因为图的结构已经改变。所以，此算法只能在比较小的图上应用。
+
+##(2008) Fast unfolding of communities in large networks
+http://dataunion.org/3108.html

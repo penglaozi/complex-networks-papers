@@ -58,3 +58,24 @@
 
 人+社团/好友推荐，基于模型，梳理数据etl
 
+## [(2014)A Survey of Friendbook Recommendation Services](https://www.ijsr.net/archive/v3i11/T0NUMTQxMDE0.pdf)
+
+
+## (2015)A Survey of Link Recommendation for Social Networks: Methods, Theoretical Foundations, and Future Research Directions
+
+这篇文章介绍了好友推荐的几个方向，并且将这些方法与社会经济学相结合。最后，提出了一些新的比较新颖的方向。我们关心的是现有好友推荐的方向和相关论文，大体如下：
+
+* 基于学习
+	* 分类：使用各种分类器（svm,lr,decision tree），包括boost，bagging等和特征工程。
+	* 概率模型:利用一些数学建模方法，归纳概率模型，然后通过最大似然计算相关参数
+	* 关系学习：利用类似贝叶斯网络的关系模型
+* 基于相似
+	* 节点相似(nodal proximity):陌生人推荐，可借助LSH大规模应用。
+	* 结构相似(structural proximity)
+		* 基于邻居：熟人推荐，相关算法可以参考[这里](https://zhuanlan.zhihu.com/p/20533434)
+		* 基于路径：最短路径和page rank类似算法
+
+可以先从比较成熟的方案实践，然后再涉及其他方案，优先级   
+
+* P0: 基于邻居，节点相似和分类算法
+* P1：模型概率，关系学习，基于路径
