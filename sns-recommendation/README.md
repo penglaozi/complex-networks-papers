@@ -60,6 +60,8 @@
 
 ## [(2014)A Survey of Friendbook Recommendation Services](https://www.ijsr.net/archive/v3i11/T0NUMTQxMDE0.pdf)
 
+太短，不知所云
+
 
 ## (2015)A Survey of Link Recommendation for Social Networks: Methods, Theoretical Foundations, and Future Research Directions
 
@@ -70,7 +72,10 @@
 	* 概率模型:利用一些数学建模方法，归纳概率模型，然后通过最大似然计算相关参数
 	* 关系学习：利用类似贝叶斯网络的关系模型
 * 基于相似
-	* 节点相似(nodal proximity):陌生人推荐，可借助LSH大规模应用。
+	* 节点相似(nodal proximity):陌生人推荐。
+		* Chen et al. 2009. (2009)Make New Friends, but Keep the Old – Recommending People on social network sites。已阅读
+		* Crandall et al. 2010,(2010)Inferring social ties from geographic coincidences
+		* Schifanella et al. 2010, (2010)Folks in Folksonomies: social link prediction from shared metadata
 	* 结构相似(structural proximity)
 		* 基于邻居：熟人推荐，相关算法可以参考[这里](https://zhuanlan.zhihu.com/p/20533434)
 		* 基于路径：最短路径和page rank类似算法
