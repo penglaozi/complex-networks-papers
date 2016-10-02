@@ -42,6 +42,15 @@
 
 基于sns的物品推荐，知乎专栏有一篇[阅读笔记](https://zhuanlan.zhihu.com/p/20602389)。虽然不是好友推荐，但是后面可能有机会遇见该问题。
 
+## (2010)Inferring social ties from geographic coincidences
+如果在时间和地点上有巧合的两个人，他们成为好友的概率非常高。比如在一天内，A和B两个人都在一天假日吃饭，并在海岸城k歌，然后又在coco park某酒吧喝酒，那么他们可能是好友。
+本文章将上面的观察，定量的用概率模型分析；同时用了一些线上数据验证了该模型。
+
+
+## (2010)Folks in Folksonomies - social link prediction from shared metadata
+这篇文章首先重网络结构和统计方面，验证了标签相识的用户之间成为好友的几率越大。然后，直接使用好友像适度排序，选取相似度最大的预测为好友，使用常规的**ROC/AUC**方法评估预测结果。
+
+文章使用了一种**基于邻居的抽样方法**，而不是任意对两个用户抽样。因为后者得到的样本，好友会非常稀疏，结果无法比较。前者，虽然结果有偏，但是至少结果可以比较。如何基于邻居呢？邻居就是1度，2度等等好友，设定一个上限，比如60，全部取出来就是样本，正样本就是1度朋友，负样本就是大于1度的朋友。
 
 
 ## 总结--好友推荐相关思路
@@ -74,7 +83,7 @@
 * 基于相似
 	* 节点相似(nodal proximity):陌生人推荐。
 		* Chen et al. 2009. (2009)Make New Friends, but Keep the Old – Recommending People on social network sites。已阅读
-		* Crandall et al. 2010,(2010)Inferring social ties from geographic coincidences
+		* Crandall et al. 2010,(2010)Inferring social ties from geographic coincidences。已阅读
 		* Schifanella et al. 2010, (2010)Folks in Folksonomies: social link prediction from shared metadata
 	* 结构相似(structural proximity)
 		* 基于邻居：熟人推荐，相关算法可以参考[这里](https://zhuanlan.zhihu.com/p/20533434)
