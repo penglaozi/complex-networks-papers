@@ -78,13 +78,21 @@
 
 * 基于学习
 	* 分类：使用各种分类器（svm,lr,decision tree），包括boost，bagging等和特征工程。
+		* O’Madadhain et al. (2005)Prediction and Ranking Algorithms for Event-Based Network Data
+		* Hasan et al. (2006)Link Prediction using Supervised Learning 
+		* Wang et al. (2007)Local Probabilistic Models for Link Prediction
+		* Lichtenwalter et al. (2010)New Perspectives and Methods in Link Prediction
+		* Scellato et al. (2011)Exploiting Place Features in Link Prediction on Location-based Social Networks
+		* Gong et al. (2012)Jointly Predicting Links and Inferring Attributes using a Social-Attribute Network
+		* Bliss et al. (2014)An Evolutionary Algorithm Approach to Link Prediction in Dynamic Social Networks
+		* Zhang et al. (2014)Meta-path based Multi-network Collective Link Prediction
 	* 概率模型:利用一些数学建模方法，归纳概率模型，然后通过最大似然计算相关参数
 	* 关系学习：利用类似贝叶斯网络的关系模型
 * 基于相似
 	* 节点相似(nodal proximity):陌生人推荐。
 		* Chen et al. 2009. (2009)Make New Friends, but Keep the Old – Recommending People on social network sites。已阅读
 		* Crandall et al. 2010,(2010)Inferring social ties from geographic coincidences。已阅读
-		* Schifanella et al. 2010, (2010)Folks in Folksonomies: social link prediction from shared metadata
+		* Schifanella et al. 2010, (2010)Folks in Folksonomies: social link prediction from shared metadata。已阅读
 	* 结构相似(structural proximity)
 		* 基于邻居：熟人推荐，相关算法可以参考[这里](https://zhuanlan.zhihu.com/p/20533434)
 		* 基于路径：最短路径和page rank类似算法
@@ -93,3 +101,20 @@
 
 * P0: 基于邻居，节点相似和分类算法
 * P1：模型概率，关系学习，基于路径
+
+
+## 如何评估推荐效果
+
+后面可以将基于分类器推荐好友的文章看看，这些文章主要是将好友关系作为特征工程，主要还是灵活使用分类器。
+
+
+
+## [数据挖掘系列篇(20):社交网络SNS的好友推荐算法](https://zhuanlan.zhihu.com/p/20943978)
+
+知乎的一篇文章sns好友推荐的综述，还是要看看。
+
+
+## 好友推荐评估指标
+
+* MAP
+* 二元分类器评估指标，召回率，准确率，f值，AUC，ROC
