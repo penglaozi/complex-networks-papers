@@ -1,3 +1,10 @@
+## (2005)Prediction and Ranking Algorithms for Event-Based Network Data
+
+本文主要解决时序网络中，如果根据已有的网络事件（边），预测未来的事件。同事涉及时序网络章，每个节点影响力的变化，感觉这个也可以做tap的事情，但是目前不是我关系的。
+
+预测事件，使用了逻辑回归，但是其他二元分类模型也可以。使用了top k的准确率来作为评估方法，当然其他二元分类器的评估指标也是适合的，关键看应用场景。训练集和预测集的选取，有点类似幸运星付费的训练集，选取一段时间的数据，预测后面一段时间是否会做。特征计算，主要是考虑数据对的特征，如相识性，最短距离，邻居的特征等。但是没有描述如何选取正负标签，我推测这个标签就是现有的边，负标签就是随机选取那些没有成对的边。
+
+
 ## (2005)Evaluating Similarity Measures - A Large-Scale Study in Orkut Social Network.pdf
 
 有涉及社群推荐相关内容。将社团看成主体，用户看成社团的成员，为社团推荐社团，间接就是为用户推荐社团。
@@ -78,7 +85,7 @@
 
 * 基于学习
 	* 分类：使用各种分类器（svm,lr,decision tree），包括boost，bagging等和特征工程。
-		* O’Madadhain et al. (2005)Prediction and Ranking Algorithms for Event-Based Network Data
+		* O’Madadhain et al. (2005)Prediction and Ranking Algorithms for Event-Based Network Data。已阅读
 		* Hasan et al. (2006)Link Prediction using Supervised Learning 
 		* Wang et al. (2007)Local Probabilistic Models for Link Prediction
 		* Lichtenwalter et al. (2010)New Perspectives and Methods in Link Prediction
@@ -114,7 +121,9 @@
 知乎的一篇文章sns好友推荐的综述，还是要看看。
 
 
+
 ## 好友推荐评估指标
 
 * MAP
 * 二元分类器评估指标，召回率，准确率，f值，AUC，ROC
+* top k的准确率。
