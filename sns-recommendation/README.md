@@ -9,6 +9,41 @@
 
 有涉及社群推荐相关内容。将社团看成主体，用户看成社团的成员，为社团推荐社团，间接就是为用户推荐社团。
 
+## (2006)Link Prediction using supervised Learning
+
+**正负样本选取方法**
+
+Then, we prepare the classification dataset, by choosing those author pairs, that appeared in the train years, but did not publish any papers together in those years. Each such pair either represent a positive example or a negative example,
+depending on whether those author pairs published at least one paper in the test years or not.
+
+正样本应该是非常稀少的，因为任意两个作者在训练集中没有一起发过论文，在后面几年一起发论文的概率应该很小，假设每个人与其他人发论文的概率是均等的，那么就是1/n，远远小于0.5。但是论文中提到的正负标签比例是1：1，感觉是人工采样出来的，而不是真实的。
+
+上面的理解是错的，文章的本意是预测新增的link，训练时间没有link，预测时间有link，才是正，否则是负，也就是训练和预测都有link，是负样本。1：1，说明在预测时间，增加了一倍合作关系（边）。
+
+
+
+
+使用了三类特征
+
+* 相识性
+* 成对聚合
+* 网络拓扑结构
+
+评估方法采用了
+
+* Accuracy
+* Precision
+* Recall
+* F-value
+* Squared-Error  需要计算概率而不是label
+
+
+一种判断特征好坏的方法，是单独看特征在不同标签小的概率分布，重合面积越小，特征越好。
+
+
+
+
+
 ## (2007)Recommendations in Taste Related Domains - Collaborative Filtering vs Social Filtering
 
 协同过滤，引入了社交属性，效果明显好于不引入。
@@ -86,7 +121,7 @@
 * 基于学习
 	* 分类：使用各种分类器（svm,lr,decision tree），包括boost，bagging等和特征工程。
 		* O’Madadhain et al. (2005)Prediction and Ranking Algorithms for Event-Based Network Data。已阅读
-		* Hasan et al. (2006)Link Prediction using Supervised Learning 
+		* Hasan et al. (2006)Link Prediction using Supervised Learning 已读
 		* Wang et al. (2007)Local Probabilistic Models for Link Prediction
 		* Lichtenwalter et al. (2010)New Perspectives and Methods in Link Prediction
 		* Scellato et al. (2011)Exploiting Place Features in Link Prediction on Location-based Social Networks
