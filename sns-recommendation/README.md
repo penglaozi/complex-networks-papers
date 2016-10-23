@@ -60,6 +60,10 @@ depending on whether those author pairs published at least one paper in the test
 后者在取邻居时，采用了sns关系，取了一度好友和二度好友，而不是全局比较，这样在时间上有大幅度性能提升。根据实验，后者在MAE和F-Measure上明显好于前置。
 
 
+## (2007)Local Probabilistic Models for Link Prediction
+推荐实践，而不是朋友，正负样本采样方法无法借鉴。
+
+
 
 ## (2009)“Make New Friends, but Keep the Old” – Recommending People on Social Networking Sites
 
@@ -78,11 +82,10 @@ depending on whether those author pairs published at least one paper in the test
 
 主要讲了基于二度好友的推荐，其中还列举了facebook的一个潜在好友评分的公式。
 
+## (2010)New Perspectives and Methods in Link Prediction
+推荐实践，而不是朋友，正负样本采样方法无法借鉴。
 
 
-## (2012)Trust-Based Local and Social Recommendation
-
-基于sns的物品推荐，知乎专栏有一篇[阅读笔记](https://zhuanlan.zhihu.com/p/20602389)。虽然不是好友推荐，但是后面可能有机会遇见该问题。
 
 ## (2010)Inferring social ties from geographic coincidences
 如果在时间和地点上有巧合的两个人，他们成为好友的概率非常高。比如在一天内，A和B两个人都在一天假日吃饭，并在海岸城k歌，然后又在coco park某酒吧喝酒，那么他们可能是好友。
@@ -94,7 +97,19 @@ depending on whether those author pairs published at least one paper in the test
 
 文章使用了一种**基于邻居的抽样方法**，而不是任意对两个用户抽样。因为后者得到的样本，好友会非常稀疏，结果无法比较。前者，虽然结果有偏，但是至少结果可以比较。如何基于邻居呢？邻居就是1度，2度等等好友，设定一个上限，比如60，全部取出来就是样本，正样本就是1度朋友，负样本就是大于1度的朋友。
 
+## (2011)Exploiting Place Features in Link Prediction on Location-based Social Networks
 
+这一遍文章**非常好**，解决了好友推荐的两个疑惑
+
+1. 如果确定预测空间：本文通过缩小搜索范围，将搜索空间限制在好友的好友和到访过相同地点的用户之间，最后通过交接，进一步缩小搜索空间。
+2. 如何设计特征：本文虽然是结合地理位置设计好友推荐的特征，但是有些地方还是值得简介。
+
+游戏好友推荐，可以将地理位置换成玩法偏好，付费能力等方面进行相似性评估，可能效果类似。同时，本文对单个特征的性能评估，二元分类模型的评估和相关文献方面都给出了很大的参考价值。
+
+
+## (2012)Trust-Based Local and Social Recommendation
+
+基于sns的物品推荐，知乎专栏有一篇[阅读笔记](https://zhuanlan.zhihu.com/p/20602389)。虽然不是好友推荐，但是后面可能有机会遇见该问题。
 ## 总结--好友推荐相关思路
 
 * 方向1 基于协同过滤+SNS社交关系：1)邻居换成好友，而不是相似用户；2）邻居且好友，意见有加成
@@ -120,11 +135,11 @@ depending on whether those author pairs published at least one paper in the test
 
 * 基于学习
 	* 分类：使用各种分类器（svm,lr,decision tree），包括boost，bagging等和特征工程。
-		* O’Madadhain et al. (2005)Prediction and Ranking Algorithms for Event-Based Network Data。已阅读
+		* O’Madadhain et al. (2005)Prediction and Ranking Algorithms for Event-Based Network Data。已阅
 		* Hasan et al. (2006)Link Prediction using Supervised Learning 已读
 		* Wang et al. (2007)Local Probabilistic Models for Link Prediction
 		* Lichtenwalter et al. (2010)New Perspectives and Methods in Link Prediction
-		* Scellato et al. (2011)Exploiting Place Features in Link Prediction on Location-based Social Networks
+		* Scellato et al. (2011)Exploiting Place Features in Link Prediction on Location-based Social Networks 已阅读
 		* Gong et al. (2012)Jointly Predicting Links and Inferring Attributes using a Social-Attribute Network
 		* Bliss et al. (2014)An Evolutionary Algorithm Approach to Link Prediction in Dynamic Social Networks
 		* Zhang et al. (2014)Meta-path based Multi-network Collective Link Prediction
@@ -162,3 +177,15 @@ depending on whether those author pairs published at least one paper in the test
 * MAP
 * 二元分类器评估指标，召回率，准确率，f值，AUC，ROC
 * top k的准确率。
+
+
+## 为什么要在游戏中推荐好友？
+游戏朋友之间的互动可以提高用户**活跃**和**付费**表现。
+
+茫茫人海中，对某个用户，推荐什么样的人才能增加好友互动呢？
+
+1. **可能认识的人** 真实世界的线下熟人或其他游戏的线上熟人,有互动的基础。
+2. **志同道合的人** 相同的玩法偏好，共同语言，有互动的动机。
+
+所以，游戏好友推荐就是为每个用户找到上面两类人（**预测空间**），然后科学的对潜在好友排序，使得用户添加好友的可能性最大化。
+
