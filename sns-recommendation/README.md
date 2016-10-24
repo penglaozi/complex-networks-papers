@@ -1,3 +1,10 @@
+ <!--MathJax数学公式-->
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
+	
+
 ## (2005)Prediction and Ranking Algorithms for Event-Based Network Data
 
 本文主要解决时序网络中，如果根据已有的网络事件（边），预测未来的事件。同事涉及时序网络章，每个节点影响力的变化，感觉这个也可以做tap的事情，但是目前不是我关系的。
@@ -170,13 +177,6 @@ depending on whether those author pairs published at least one paper in the test
 
 知乎的一篇文章sns好友推荐的综述，还是要看看。
 
-
-
-## 好友推荐评估指标
-
-* MAP
-* 二元分类器评估指标，召回率，准确率，f值，AUC，ROC
-* top k的准确率。
 
 
 ## 为什么要在游戏中推荐好友？
