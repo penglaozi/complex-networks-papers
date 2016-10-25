@@ -68,7 +68,7 @@ depending on whether those author pairs published at least one paper in the test
 
 
 ## (2007)Local Probabilistic Models for Link Prediction
-推荐实践，而不是朋友，正负样本采样方法无法借鉴。
+推荐事件，而不是朋友，关系是可以重复建立的，与相对永久的朋友关系不太一样，正负样本采样方法无法借鉴。
 
 
 
@@ -125,16 +125,25 @@ depending on whether those author pairs published at least one paper in the test
 * 方向4 社团与社团：将研究单位变成社团，对社团推荐社团，然后可以归纳到用户与社团推荐
 * 方向5 迁移学习：构建单一游戏外的全网络，结合方向1与2
 
+## (2012)Jointly Predicting Links and Inferring Attributes using a Social-Attribute Network
 
+使用的hop2-links 作为好友预测的候选空间。本文还有用户属性预估，并且用预估的属性增加好友预测的准确率。
 
 ## 后续工作
 
 人+社团/好友推荐，基于模型，梳理数据etl
 
+## (2014)An Evolutionary Algorithm Approach to Link Prediction in Dynamic Social Networks
+
+预测动态事件，tweet交互，不适合。
+
 ## [(2014)A Survey of Friendbook Recommendation Services](https://www.ijsr.net/archive/v3i11/T0NUMTQxMDE0.pdf)
 
 太短，不知所云
 
+## (2014)Meta-path based Multi-network Collective Link Prediction
+
+多个图的link预测，后面如果探索多个游戏的巨大社交网络，可以参考这篇文章
 
 ## (2015)A Survey of Link Recommendation for Social Networks: Methods, Theoretical Foundations, and Future Research Directions
 
@@ -144,12 +153,12 @@ depending on whether those author pairs published at least one paper in the test
 	* 分类：使用各种分类器（svm,lr,decision tree），包括boost，bagging等和特征工程。
 		* O’Madadhain et al. (2005)Prediction and Ranking Algorithms for Event-Based Network Data。已阅
 		* Hasan et al. (2006)Link Prediction using Supervised Learning 已读
-		* Wang et al. (2007)Local Probabilistic Models for Link Prediction
-		* Lichtenwalter et al. (2010)New Perspectives and Methods in Link Prediction
+		* Wang et al. (2007)Local Probabilistic Models for Link Prediction 已阅读
+		* Lichtenwalter et al. (2010)New Perspectives and Methods in Link Prediction 已阅读
 		* Scellato et al. (2011)Exploiting Place Features in Link Prediction on Location-based Social Networks 已阅读
-		* Gong et al. (2012)Jointly Predicting Links and Inferring Attributes using a Social-Attribute Network
-		* Bliss et al. (2014)An Evolutionary Algorithm Approach to Link Prediction in Dynamic Social Networks
-		* Zhang et al. (2014)Meta-path based Multi-network Collective Link Prediction
+		* Gong et al. (2012)Jointly Predicting Links and Inferring Attributes using a Social-Attribute Network 已阅
+		* Bliss et al. (2014)An Evolutionary Algorithm Approach to Link Prediction in Dynamic Social Networks 已阅读
+		* Zhang et al. (2014)Meta-path based Multi-network Collective Link Prediction 已阅读
 	* 概率模型:利用一些数学建模方法，归纳概率模型，然后通过最大似然计算相关参数
 	* 关系学习：利用类似贝叶斯网络的关系模型
 * 基于相似
